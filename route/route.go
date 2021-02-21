@@ -18,7 +18,7 @@ func (r *Route) InitRoute() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", r.Handler.IndexHandler)
-	// mux.HandleFunc("/create", r.Handler.CreateHandler)
+	mux.HandleFunc("/book/create", r.Handler.CreateHandler)
 
 	log.Println("Starting web on localhost:8000")
 

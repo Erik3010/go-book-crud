@@ -38,3 +38,8 @@ func (c Controller) UpdateBook(bookData *book.Book) *gorm.DB {
 	result := c.db.Model(&bookData).Select("*").Omit("created_at").Updates(bookData)
 	return result
 }
+
+func (c Controller) DeleteBook(id int) *gorm.DB {
+	result := c.db.Delete(&book.Book{}, id)
+	return result
+}

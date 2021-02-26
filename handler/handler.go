@@ -172,3 +172,17 @@ func (h Handler) UpdateHandler(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "/book", http.StatusMovedPermanently)
 }
+
+func (h Handler) DeleteHandler(w http.ResponseWriter, r *http.Request) {
+	idQuery := r.URL.Query().Get("id")
+
+	id, err := strconv.Atoi(idQuery)
+	if err != nil || id < 1 {
+		http.Error(w, "There is an Error", http.StatusInternalServerError)
+		return
+	}
+
+	h.Controller.DeleteBook(id)
+
+	http.Redirect(w, r, "/book", http.StatusMovedPermanently)
+}

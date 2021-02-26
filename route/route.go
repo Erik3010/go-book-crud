@@ -14,14 +14,23 @@ func NewRoute(h *handler.Handler) *Route {
 	return &Route{h}
 }
 
-func (r *Route) InitRoute() {
+func (r Route) InitRoute() {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", r.Handler.IndexHandler)
-	mux.HandleFunc("/book/create", r.Handler.CreateHandler)
+	r.RouteList(mux)
 
 	log.Println("Starting web on localhost:8000")
 
 	err := http.ListenAndServe("localhost:8000", mux)
 	log.Fatal(err)
+}
+
+func (r Route) RouteList(mux *http.ServeMux) {
+	// Index
+	mux.HandleFunc("/", r.Handler.IndexHandler)
+	mux.HandleFunc("/book", r.Handler.IndexHandler)
+
+	// Create
+	mux.HandleFunc("/book/create", r.Handler.CreateHandler)
+	mux.HandleFunc("/book/store", r.Handler.StoreHandler)
 }

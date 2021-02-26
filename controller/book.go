@@ -21,3 +21,19 @@ func (c *Controller) GetBooks() []book.Book {
 
 	return books
 }
+
+func (c *Controller) StoreBook(b map[string]interface{}) book.Book {
+	title := b["title"].(string)
+	description := b["description"].(string)
+	price := b["price"].(int)
+
+	book := book.Book{
+		Title:       title,
+		Description: description,
+		Price:       price,
+	}
+
+	c.db.Create(&book)
+
+	return book
+}

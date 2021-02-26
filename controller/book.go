@@ -14,7 +14,7 @@ func NewController(db *gorm.DB) *Controller {
 	return &Controller{db}
 }
 
-func (c *Controller) GetBooks() []book.Book {
+func (c Controller) GetBooks() []book.Book {
 	var books []book.Book
 
 	c.db.Find(&books)
@@ -22,18 +22,19 @@ func (c *Controller) GetBooks() []book.Book {
 	return books
 }
 
-func (c *Controller) StoreBook(b map[string]interface{}) book.Book {
-	title := b["title"].(string)
-	description := b["description"].(string)
-	price := b["price"].(int)
+func (c Controller) StoreBook(bookData *book.Book) *gorm.DB {
+	result := c.db.Create(&bookData)
 
-	book := book.Book{
-		Title:       title,
-		Description: description,
-		Price:       price,
-	}
+	return result
+}
 
-	c.db.Create(&book)
+func (c Controller) ShowBook(id int) (bookData book.Book, err error) {
+	result := c.db.First(&bookData, id)
 
-	return book
+	return bookData, result.Error
+}
+
+func (c Controller) UpdateBook(bookData *book.Book) *gorm.DB {
+	result := c.db.Model(&bookData).Select("*").Omit("created_at").Updates(bookData)
+	return result
 }

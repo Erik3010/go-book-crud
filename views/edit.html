@@ -1,0 +1,36 @@
+{{ template "layout" .}} {{ define "main" }}
+<div class="pt-10 border-t border-gray-200">
+    <form action="/book/update" method="POST">
+        <input type="hidden" name="id" value="{{ .Data.ID }}">
+        <div>
+            <label for="title" class="block text-base font-medium text-gray-700">Title</label>
+            <div class="mt-2">
+                <input type="text" name="title" id="title" placeholder="Title"
+                    class="sm:text-sm text-gray-900 border p-2 px-3 w-full rounded-md border-gray-300 focus:outline-none focus:ring-4 focus:ring focus:ring-blue-200 focus:border-blue-500 shadow-sm"
+                    value="{{ .Data.Title }}" />
+            </div>
+        </div>
+        <div class="mt-5">
+            <label for="price" class="block text-base font-medium text-gray-700">Price</label>
+            <div class="mt-2">
+                <input type="number" min="1" name="price" id="price" placeholder="Price"
+                    class="sm:text-sm text-gray-900 border p-2 px-3 w-full rounded-md border-gray-300 focus:outline-none focus:ring-4 focus:ring focus:ring-blue-200 focus:border-blue-500 shadow-sm"
+                    value="{{ .Data.Price }}" />
+            </div>
+        </div>
+        <div class="mt-5">
+            <label for="description" class="block text-base font-medium text-gray-700">Description</label>
+            <div class="mt-2">
+                <textarea type="text" name="description" id="description" placeholder="Description here..."
+                    class="sm:text-sm text-gray-900 border p-2 px-3 w-full rounded-md border-gray-300 focus:outline-none focus:ring-4 focus:ring focus:ring-blue-200 focus:border-blue-500 shadow-sm">{{ .Data.Description }}</textarea>
+            </div>
+        </div>
+        <div class="mt-7">
+            <button
+                class="items-center py-2 px-4 border border-transparent bg-blue-600 text-sm text-white rounded-md hover:bg-blue-700 cursor-pointer focus:outline-none tracking-wide font-medium shadow-sm">
+                <span>Save</span>
+            </button>
+        </div>
+    </form>
+</div>
+{{ end }}

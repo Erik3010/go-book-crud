@@ -33,4 +33,8 @@ func (r Route) RouteList(mux *http.ServeMux) {
 	// Create
 	mux.HandleFunc("/book/create", r.Handler.CreateHandler)
 	mux.HandleFunc("/book/store", r.Handler.StoreHandler)
+
+	// edit
+	mux.HandleFunc("/book/edit", r.Handler.EditHandler)
+	mux.HandleFunc("/book/update", r.Handler.UpdateHandler)
 }
